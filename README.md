@@ -69,7 +69,7 @@ Add the platform-tools to you PATH to use 'adb' command:
 export PATH="$PATH:/home/mark/Android/Sdk/platform-tools/"
 ```
 
-Run the 'adb devices' and 'adb usb' to verify your Android device is in development mode and allows connections.
+Run the 'adb devices' and 'adb usb' to verify your Android networkService is in development mode and allows connections.
 
 ### MacOS
 
