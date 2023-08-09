@@ -1,19 +1,27 @@
 package biz.nellemann.mdexpl;
 
 import biz.nellemann.mdexpl.model.NetworkService;
+import com.gluonhq.attach.util.impl.ClipboardUtils;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.input.Clipboard;
+
+import java.util.Optional;
 
 public class NetworkServiceCell extends CharmListCell<NetworkService> {
 
     private final ListTile tile;
-    //private final ImageView imageView;
     private final Rectangle icon;
 
+    private final Clipboard clipboard;
+    private final ClipboardContent clipboardContent;
+
     public NetworkServiceCell() {
+        clipboard = Clipboard.getSystemClipboard();
+        clipboardContent = new ClipboardContent();
+
         this.tile = new ListTile();
         //imageView = new ImageView();
         //imageView.setFitHeight(15);
@@ -23,7 +31,12 @@ public class NetworkServiceCell extends CharmListCell<NetworkService> {
         icon.setHeight(25);
         icon.setWidth(25);
         tile.setPrimaryGraphic(icon);
-        tile.setOnMouseClicked(e -> { System.out.println("Selected ->  " + itemProperty().get().getName() ); });
+        tile.setOnMouseClicked(e -> {
+            System.out.println("Selected ->  " + itemProperty().get().getName() );
+            clipboardContent.putString(itemProperty().get().getUrl());
+            clipboard.setContent(clipboardContent);
+            // TODO: Copy to iOS / Android clipboard
+        });
         setText(null);
     }
 

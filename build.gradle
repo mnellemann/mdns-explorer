@@ -63,7 +63,7 @@ gluonfx {
 
     attachConfig {
         version = "4.0.18"
-        services 'storage', 'display', 'lifecycle', 'statusbar', 'cache'
+        services 'storage', 'display', 'lifecycle', 'statusbar'
     }
 
     reflectionList = [
