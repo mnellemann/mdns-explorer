@@ -37,7 +37,7 @@ public class NetworkServiceListener implements ServiceListener {
         if (serviceInfo != null) {
             String name = serviceInfo.getName();
             log.info("serviceRemoved() - Service: " + name);
-            NetworkService oldNetworkService = new NetworkService(name, service, serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
+            NetworkService oldNetworkService = new NetworkService(name, service, serviceInfo.getSubtype(), serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
             Platform.runLater(() -> {
                 observableList.remove(oldNetworkService);
             });
@@ -52,7 +52,7 @@ public class NetworkServiceListener implements ServiceListener {
             String name = serviceInfo.getName();
             String app = serviceInfo.getApplication();
             log.info("serviceResolved() - Service: {} - {} with url {}", app, name, url);
-            NetworkService newNetworkService = new NetworkService(name, service, app, url, color);
+            NetworkService newNetworkService = new NetworkService(name, service, serviceInfo.getSubtype(), app, url, color);
             Platform.runLater(() -> {
                 if(!observableList.contains(newNetworkService)) {
                     observableList.add(newNetworkService);
