@@ -6,13 +6,15 @@ public class NetworkService {
 
     private String name;
     private String type;
+    private String subType;
     private String app;
     private String url;
     private Color color;
 
-    public NetworkService(String name, String type, String app, String url, Color color) {
+    public NetworkService(String name, String type, String subType, String app, String url, Color color) {
         this.name = name;
         this.type = type;
+        this.subType = subType;
         this.app = app;
         this.url = url;
         this.color = color;
@@ -32,6 +34,14 @@ public class NetworkService {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
 
     public String getApp() {

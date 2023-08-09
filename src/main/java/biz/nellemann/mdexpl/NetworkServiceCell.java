@@ -45,7 +45,7 @@ public class NetworkServiceCell extends CharmListCell<NetworkService> {
         super.updateItem(item, empty);
         if (item != null && !empty) {
             tile.textProperty().setAll(item.getName(),
-                "App: " + item.getApp(), "URL: " + item.getUrl()
+                item.getApp() + " (" + item.getSubType() + ") - " + item.getUrl()
             );
             icon.setFill(item.getColor());
             setGraphic(tile);

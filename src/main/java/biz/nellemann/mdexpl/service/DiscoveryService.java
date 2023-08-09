@@ -11,9 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Singleton;
 import javax.jmdns.JmDNS;
 import java.io.IOException;
-import java.util.Arrays;
+import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -72,7 +71,7 @@ public class DiscoveryService {
     public void initialize() {
         log.info("initialize()");
         try {
-            jmdns = JmDNS.create(null, "mdnsExplorer");
+            jmdns = JmDNS.create(InetAddress.getByName("0.0.0.0"), "mdnsExplorer");
         } catch (IOException e) {
             log.error("initialize() - {}", e.getMessage());
         }
