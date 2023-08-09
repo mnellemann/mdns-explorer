@@ -68,12 +68,6 @@ public class MainPresenter {
     }
 
 
-    @FXML
-    protected void onButtonRefresh() {
-        log.info("onButtonRefresh()");
-    }
-
-
     public void onEventShowing(LifecycleEvent lifecycleEvent) {
 
     }

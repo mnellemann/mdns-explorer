@@ -1,17 +1,21 @@
 package biz.nellemann.mdexpl.model;
 
+import javafx.scene.paint.Color;
+
 public class NetworkService {
 
     private String name;
     private String type;
     private String app;
     private String url;
+    private Color color;
 
-    public NetworkService(String name, String type, String app, String url) {
+    public NetworkService(String name, String type, String app, String url, Color color) {
         this.name = name;
         this.type = type;
         this.app = app;
         this.url = url;
+        this.color = color;
     }
 
     public String getName() {
@@ -46,6 +50,15 @@ public class NetworkService {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
 
     @Override
     public String toString() {
