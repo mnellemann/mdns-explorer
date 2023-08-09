@@ -1,20 +1,20 @@
 package biz.nellemann.mdexpl.view;
 
+import biz.nellemann.mdexpl.NetworkServiceCell;
+import biz.nellemann.mdexpl.model.NetworkService;
 import biz.nellemann.mdexpl.model.MainModel;
 import biz.nellemann.mdexpl.service.DiscoveryService;
 import com.gluonhq.charm.glisten.application.AppManager;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
-import com.gluonhq.charm.glisten.control.Icon;
 import com.gluonhq.charm.glisten.control.LifecycleEvent;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +41,8 @@ public class MainPresenter {
     @FXML
     private CharmListView charmListView;
 
+    private ObservableList<NetworkService> devicesList = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize() {
@@ -56,19 +58,13 @@ public class MainPresenter {
                     appManager.getDrawer().open()));
 
                 appBar.setTitleText("mDNS Explorer");
-                //appBar.getActionItems().add(progressIndicator);
             }
         });
 
+        discoveryService.setObservableList(devicesList);
 
-    }
-
-
-    @FXML
-    protected void onButtonRefresh() {
-        log.info("onButtonRefresh()");
-
-
+        charmListView.setItems(devicesList);
+        charmListView.setCellFactory(p -> new NetworkServiceCell());
     }
 
 

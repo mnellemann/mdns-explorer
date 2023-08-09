@@ -1,24 +1,30 @@
 package biz.nellemann.mdexpl;
 
+import biz.nellemann.mdexpl.model.NetworkService;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
-import java.util.HashMap;
 
 public class NetworkServiceListener implements ServiceListener {
 
     private static final Logger log = LoggerFactory.getLogger(NetworkServiceListener.class);
 
-    private final HashMap<String, String> onlineList = new HashMap<>();
+    private final String service;
+    private final ObservableList<NetworkService> observableList;
 
-    private final String serviceType;
+    private final Color color;
 
-    public NetworkServiceListener(String type) {
-        log.info("NetworkServiceListener() - type: {}", type);
-        this.serviceType = type;
+    public NetworkServiceListener(String service, ObservableList<NetworkService> observableList, Color color) {
+        log.info("NetworkServiceListener() - type: {}", service);
+        this.service = service;
+        this.observableList = observableList;
+        this.color = color;
     }
 
     @Override
@@ -30,8 +36,11 @@ public class NetworkServiceListener implements ServiceListener {
         ServiceInfo serviceInfo = event.getInfo();
         if (serviceInfo != null) {
             String name = serviceInfo.getName();
-            onlineList.remove(name);
-            log.info("serviceRemoved() - Removed service: " + name);
+            log.info("serviceRemoved() - Service: " + name);
+            NetworkService oldNetworkService = new NetworkService(name, service, serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
+            Platform.runLater(() -> {
+                observableList.remove(oldNetworkService);
+            });
         }
     }
 
@@ -42,9 +51,13 @@ public class NetworkServiceListener implements ServiceListener {
             String url = serviceInfo.getURLs()[0];
             String name = serviceInfo.getName();
             String app = serviceInfo.getApplication();
-            log.debug(serviceInfo.toString());
-            onlineList.put(name, url);
-            log.info("serviceResolved() - Found {}: {} with url {}", app, name, url);
+            log.info("serviceResolved() - Service: {} - {} with url {}", app, name, url);
+            NetworkService newNetworkService = new NetworkService(name, service, app, url, color);
+            Platform.runLater(() -> {
+                if(!observableList.contains(newNetworkService)) {
+                    observableList.add(newNetworkService);
+                }
+            });
         }
 
     }
