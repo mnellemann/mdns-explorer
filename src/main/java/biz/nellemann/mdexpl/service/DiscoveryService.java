@@ -32,26 +32,39 @@ public class DiscoveryService {
         "googlecast", "sonos", "airplay", "smartenergy", "skype", "bittorrent"
     );*/
 
-    // From: http://www.dns-sd.org/serviceTypes.html + some guesses
+    // From: http://www.dns-sd.org/serviceTypes.html +
+    // https://jonathanmumm.com/tech-it/mdns-bonjour-bible-common-service-strings-for-various-vendors/ + some guesses
     private final Map<String, Color> services  = new HashMap<>() {{
         put("http", Color.BLUE);
         put("https", Color.DARKBLUE);
 
         put("googlecast", Color.RED);
+        //put("googlezone", Color.RED);
+        put("googlerpc", Color.RED);
         put("airplay", Color.SLATEGRAY);
         put("sonos", Color.SANDYBROWN);
+        //put("spotify-connect", Color.SANDYBROWN);
+
+        put("ssh", Color.GOLD);
+        put("rdp", Color.GOLD);
+        put("teamviewer", Color.GOLD);
 
         put("ipp", Color.LIGHTGRAY);
         put("ipps", Color.LIGHTGRAY);
+        put("printer", Color.LIGHTGRAY);
 
         put("nfs", Color.CORAL);
         put("smb", Color.CORAL);
         put("cifs", Color.CORAL);
+        put("webdav", Color.CORAL);
 
         put("smartenergy", Color.LIGHTGREEN);
+        put("homekit", Color.LIGHTGREEN);
 
         put("sip", Color.YELLOW);
         put("skype", Color.YELLOW);
+
+        //put("rdlink", Color.KHAKI);
     }};
 
 
