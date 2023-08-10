@@ -29,6 +29,8 @@ public class NetworkServiceListener implements ServiceListener {
 
     @Override
     public void serviceAdded(ServiceEvent event) {
+        ServiceInfo serviceInfo = event.getInfo();
+        log.info("serviceRemoved() - Service: " + serviceInfo.getName());
     }
 
     @Override
@@ -37,10 +39,12 @@ public class NetworkServiceListener implements ServiceListener {
         if (serviceInfo != null) {
             String name = serviceInfo.getName();
             log.info("serviceRemoved() - Service: " + name);
-            NetworkService oldNetworkService = new NetworkService(name, service, serviceInfo.getSubtype(), serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
-            Platform.runLater(() -> {
-                observableList.remove(oldNetworkService);
-            });
+            NetworkService networkService = new NetworkService(name, service, serviceInfo.getSubtype(), serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
+            while (observableList.contains(networkService)) {
+                Platform.runLater(() -> {
+                    observableList.remove(networkService);
+                });
+            }
         }
     }
 
@@ -52,10 +56,10 @@ public class NetworkServiceListener implements ServiceListener {
             String name = serviceInfo.getName();
             String app = serviceInfo.getApplication();
             log.info("serviceResolved() - Service: {} - {} with url {}", app, name, url);
-            NetworkService newNetworkService = new NetworkService(name, service, serviceInfo.getSubtype(), app, url, color);
+            NetworkService networkService = new NetworkService(name, service, serviceInfo.getSubtype(), app, url, color);
             Platform.runLater(() -> {
-                if(!observableList.contains(newNetworkService)) {
-                    observableList.add(newNetworkService);
+                if(!observableList.contains(networkService)) {
+                    observableList.add(networkService);
                 }
             });
         }

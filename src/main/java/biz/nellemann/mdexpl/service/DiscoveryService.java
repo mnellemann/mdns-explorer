@@ -52,6 +52,7 @@ public class DiscoveryService {
         put("ipp", Color.LIGHTGRAY);
         put("ipps", Color.LIGHTGRAY);
         put("printer", Color.LIGHTGRAY);
+        put("scanner", Color.LIGHTGRAY);
 
         put("nfs", Color.CORAL);
         put("smb", Color.CORAL);
@@ -59,7 +60,9 @@ public class DiscoveryService {
         put("webdav", Color.CORAL);
 
         put("smartenergy", Color.LIGHTGREEN);
+        put("hap", Color.LIGHTGREEN);
         put("homekit", Color.LIGHTGREEN);
+        put("homebridge", Color.LIGHTGREEN);
 
         put("sip", Color.YELLOW);
         put("skype", Color.YELLOW);
