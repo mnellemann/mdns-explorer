@@ -32,10 +32,8 @@ public class NetworkServiceCell extends CharmListCell<NetworkService> {
         icon.setWidth(25);
         tile.setPrimaryGraphic(icon);
         tile.setOnMouseClicked(e -> {
-            System.out.println("Selected ->  " + itemProperty().get().getName() );
             clipboardContent.putString(itemProperty().get().getUrl());
             clipboard.setContent(clipboardContent);
-            // TODO: Copy to iOS / Android clipboard
         });
         setText(null);
     }

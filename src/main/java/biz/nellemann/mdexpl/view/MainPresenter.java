@@ -39,9 +39,9 @@ public class MainPresenter {
     private ResourceBundle resources;
 
     @FXML
-    private CharmListView charmListView;
+    private CharmListView<NetworkService, Integer> charmListView;
 
-    private ObservableList<NetworkService> devicesList = FXCollections.observableArrayList();
+    private final ObservableList<NetworkService> devicesList = FXCollections.observableArrayList();
 
 
     @FXML
@@ -62,7 +62,6 @@ public class MainPresenter {
         });
 
         discoveryService.setObservableList(devicesList);
-
         charmListView.setItems(devicesList);
         charmListView.setCellFactory(p -> new NetworkServiceCell());
     }

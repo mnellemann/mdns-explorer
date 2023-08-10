@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Singleton;
 import javax.jmdns.JmDNS;
 import java.io.IOException;
@@ -78,6 +79,18 @@ public class DiscoveryService {
     }
 
 
+    @PreDestroy
+    public void destroy() {
+        if(jmdns != null) {
+            try {
+                jmdns.close();
+            } catch (IOException e) {
+                log.error("destroy() - {}", e.getMessage());
+            }
+        }
+    }
+
+
     public void setObservableList(ObservableList<NetworkService> list) {
         this.observableList = list;
         services.forEach((item, color) -> {
@@ -86,5 +99,6 @@ public class DiscoveryService {
             jmdns.addServiceListener(service, networkServiceListener);
         });
     }
+
 
 }
