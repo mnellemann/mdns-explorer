@@ -94,7 +94,7 @@ gluonfx {
         //providedKeyAlias = ""
         //providedKeyAliasPassword = ""
         // iOS
-        //bundleName = ""
+        //bundleName = "mDNS Explorer"
         //bundleVersion = ""
         //bundleShortVersion = ""
         //providedSigningIdentity = ""

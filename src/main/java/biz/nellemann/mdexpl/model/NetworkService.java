@@ -2,6 +2,8 @@ package biz.nellemann.mdexpl.model;
 
 import javafx.scene.paint.Color;
 
+import java.util.Objects;
+
 public class NetworkService {
 
     private String name;
@@ -75,13 +77,23 @@ public class NetworkService {
         return name + " (" + type + "), app=" + app + ", url=" + url;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof NetworkService networkService)) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
             return false;
-        }
-        return networkService.name.equals(name) && networkService.type.equals(type) && networkService.url.equals(url);
+        NetworkService networkService = (NetworkService) o;
+        return Objects.equals(type, networkService.type) && Objects.equals(name, networkService.name) && Objects.equals(url, networkService.url);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        return result;
     }
 
 }

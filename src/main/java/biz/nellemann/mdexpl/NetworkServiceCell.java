@@ -18,6 +18,7 @@ public class NetworkServiceCell extends CharmListCell<NetworkService> {
     private final Clipboard clipboard;
     private final ClipboardContent clipboardContent;
 
+
     public NetworkServiceCell() {
         clipboard = Clipboard.getSystemClipboard();
         clipboardContent = new ClipboardContent();
@@ -39,6 +40,7 @@ public class NetworkServiceCell extends CharmListCell<NetworkService> {
         });
         setText(null);
     }
+
 
     @Override
     public void updateItem(NetworkService item, boolean empty) {
