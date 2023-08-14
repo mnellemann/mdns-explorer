@@ -20,15 +20,9 @@ public class DiscoveryService {
 
     private final static Logger log = LoggerFactory.getLogger(DiscoveryService.class);
 
-    private ObservableList<NetworkService> observableList;
+    private final ObservableList<NetworkService> observableList;
 
     private JmDNS jmdns;
-
-    /*private final HashMap<String, Color> services = HashMap<>({
-        "http", "https", "upnp", "ssh", "sip", "rdp", "ntp", "rdp", "rtsp",
-        "ntp", "smb", "nfs", "llrp", "ftp", "ep", "daap", "ipp", "ipps",
-        "googlecast", "sonos", "airplay", "smartenergy", "skype", "bittorrent"
-    );*/
 
     // From: http://www.dns-sd.org/serviceTypes.html +
     // https://jonathanmumm.com/tech-it/mdns-bonjour-bible-common-service-strings-for-various-vendors/ + some guesses
@@ -68,36 +62,20 @@ public class DiscoveryService {
         //put("rdlink", Color.KHAKI);
     }};
 
+    public DiscoveryService(ObservableList<NetworkService> list) {
+        log.info("DiscoveryService()");
+        this.observableList = list;
 
-    public void initialize() {
-        log.info("initialize()");
         try {
             jmdns = JmDNS.create(InetAddress.getByName("0.0.0.0"), "mdnsExplorer");
+            services.forEach((item, color) -> {
+                String service = String.format("_%s._%s.local.", item, "tcp");
+                NetworkServiceListener networkServiceListener = new NetworkServiceListener(service, observableList, color);
+                jmdns.addServiceListener(service, networkServiceListener);
+            });
         } catch (IOException e) {
             log.error("initialize() - {}", e.getMessage());
         }
     }
-
-
-    public void destroy() {
-        if(jmdns != null) {
-            try {
-                jmdns.close();
-            } catch (IOException e) {
-                log.error("destroy() - {}", e.getMessage());
-            }
-        }
-    }
-
-
-    public void setObservableList(ObservableList<NetworkService> list) {
-        this.observableList = list;
-        services.forEach((item, color) -> {
-            String service = String.format("_%s._%s.local.", item, "tcp");
-            NetworkServiceListener networkServiceListener = new NetworkServiceListener(service, observableList, color);
-            jmdns.addServiceListener(service, networkServiceListener);
-        });
-    }
-
 
 }

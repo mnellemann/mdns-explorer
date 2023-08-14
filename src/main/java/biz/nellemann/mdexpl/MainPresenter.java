@@ -38,17 +38,9 @@ public class MainPresenter {
     @FXML
     public void initialize() {
         log.info("initialize()");
-
-        view.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-            log.info("Window closing");
-            discoveryService.destroy();
-        });
-
-        discoveryService = new DiscoveryService();
-        discoveryService.initialize();
-        discoveryService.setObservableList(devicesList);
         listView.setItems(devicesList);
         listView.setCellFactory(p -> new NetworkServiceCell());
+        discoveryService = new DiscoveryService(devicesList);
     }
 
 

@@ -17,15 +17,13 @@ import java.io.IOException;
 public class App extends Application {
 
     @Override
-    public void init() {
-        Platform.setImplicitExit(true);
-    }
-
-    @Override
     public void start(Stage primaryStage) throws IOException {
 
         // Make all stages close and the app exit when the primary stage is closed
-        primaryStage.setOnCloseRequest(e -> Platform.exit());
+        Platform.setImplicitExit(true);
+        primaryStage.setOnCloseRequest(e -> {
+            System.exit(0);
+        });
 
         // Set icon on the application bar
         var appIcon = new Image("/icon.png");
@@ -48,11 +46,6 @@ public class App extends Application {
         primaryStage.setTitle("mDNS Explorer");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-
-    @Override
-    public void stop() {
     }
 
 
