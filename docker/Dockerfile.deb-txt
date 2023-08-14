@@ -1,0 +1,12 @@
+FROM docker.io/debian:stable AS build
+
+RUN apt-get update && apt-get install -y unzip zip curl dpkg-dev
+RUN bash -c "curl -s 'https://get.sdkman.io' | bash"
+RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-zulu"
+
+COPY ./src /tmp/prj/src
+COPY ./gradle /tmp/prj/gradle
+COPY [ "gradlew", "build.gradle", "gradle.properties", "settings.gradle", "/tmp/prj/" ]
+
+WORKDIR /tmp/prj
+RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage"

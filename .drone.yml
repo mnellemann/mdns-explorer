@@ -1,0 +1,44 @@
+---
+kind: pipeline
+name: default
+type: docker
+
+#platform:
+#  os: linux
+#  arch: amd64
+
+
+steps:
+
+  - name: test
+    image: docker.io/bellsoft/liberica-openjdk-debian:17
+    commands:
+      - ./gradlew --quiet --no-daemon test
+
+
+  - name: build-deb
+    image: docker.io/debian:stable
+    environment:
+      AUTH_TOKEN:                 # Gitea access token ENV variable
+        from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
+    commands:
+      - apt-get install -y dpkg-dev unzip zip curl
+      - ./gradlew --quiet --no-daemon build jpackage
+      - for file in build/jpackage/*.{rpm,deb} ; do curl -s --user "$${AUTH_TOKEN}" --upload-file "$${file}" "https://git.data.coop/api/packages/${DRONE_REPO_OWNER}/generic/${DRONE_REPO_NAME}/${DRONE_TAG}/$(basename $file)" ; done
+    when:
+      event:
+        - tag
+
+
+  - name: build-rpm
+    image: docker.io/almalinux:8
+    environment:
+      AUTH_TOKEN:                 # Gitea access token ENV variable
+        from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
+    commands:
+      - dnf -y install unzip zip rpm-build
+      - ./gradlew --quiet --no-daemon build jpackage
+      - for file in build/jpackage/*.{rpm,deb} ; do curl -s --user "$${AUTH_TOKEN}" --upload-file "$${file}" "https://git.data.coop/api/packages/${DRONE_REPO_OWNER}/generic/${DRONE_REPO_NAME}/${DRONE_TAG}/$(basename $file)" ; done
+    when:
+      event:
+        - tag

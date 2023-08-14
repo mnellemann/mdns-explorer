@@ -1,4 +1,6 @@
 plugins {
+    id 'java'
+    id 'groovy'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.14'
     id 'com.google.osdetector' version '1.7.3'
@@ -14,17 +16,15 @@ import org.apache.tools.ant.filters.ReplaceTokens
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        url 'https://nexus.gluonhq.com/nexus/content/repositories/releases'
-    }
 }
-
-version = "0.0.1"
-mainClassName = "biz.nellemann.mdexpl.App"
-application.mainModule = "biz.nellemann.mdexpl"
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'biz.nellemann.mdexpl'
+    mainClass = 'biz.nellemann.mdexpl.App'
 }
 
 java {
@@ -106,21 +106,6 @@ gluonfx {
 
 }*/
 
-/*
-shadowJar {
-    //archiveBaseName.set("vtd-poc-app")
-    //archiveClassifier.set('all')
-    archiveVersion.set("${System.env.BITBUCKET_BRANCH ?: 'dev' }")
-}*/
-
-//tasks.build.dependsOn tasks.shadowJar
-
-tasks.processResources {
-    filesMatching('**/configuration.properties') {
-        filter(ReplaceTokens, tokens: [copyright: '2023', version: System.env.BITBUCKET_BUILD_NUMBER ?: 'development' ])
-    }
-}
-
 jlink {
 
     forceMerge 'slf4j'
@@ -179,21 +164,37 @@ jlink {
             ]
 
             if (osdetector.release.isLike('debian')) {
+                // Requires 'dpkg-dev' installed
                 installerType = 'deb'
                 skipInstaller = false
                 installerOptions += [
                     '--linux-deb-maintainer', 'mark.nellemann@gmail.com'
                 ]
-            } else if (osdetector.release.isLike('centos')) {
+            } else if (osdetector.release.isLike('centos') or osdetector.release.isLike('suse')) {
+                // Requires 'rpm-build' installed
                 installerType = 'rpm'
                 skipInstaller = false
                 installerOptions += [
                     '--linux-rpm-license-type', 'APACHE-20'
                 ]
             }
-
         }
 
     }
 
+}
+
+/*
+shadowJar {
+    //archiveBaseName.set("vtd-poc-app")
+    //archiveClassifier.set('all')
+    archiveVersion.set("${System.env.BITBUCKET_BRANCH ?: 'dev' }")
+}*/
+
+//tasks.build.dependsOn tasks.shadowJar
+
+tasks.processResources {
+    filesMatching('**/configuration.properties') {
+        filter(ReplaceTokens, tokens: [copyright: '2023', version: System.env.BITBUCKET_BUILD_NUMBER ?: 'development' ])
+    }
 }
