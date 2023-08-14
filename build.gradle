@@ -105,28 +105,14 @@ jlink {
         }
 
         if(osdetector.os == 'linux') {
-
+            skipInstaller = false
             installerOptions += [
                 '--linux-menu-group', 'Internet',
                 '--linux-shortcut',
-                //'--icon', 'src/main/resources/icon_256x256.png'
+                '--linux-deb-maintainer', 'mark.nellemann@gmail.com',
+                '--linux-rpm-license-type', 'APACHE-20',
+                '--icon', 'src/main/resources/icon.png',
             ]
-
-            if (osdetector.release.isLike('debian')) {
-                // Requires 'dpkg-dev' installed
-                installerType = 'deb'
-                skipInstaller = false
-                installerOptions += [
-                    '--linux-deb-maintainer', 'mark.nellemann@gmail.com'
-                ]
-            } else if (osdetector.release.isLike('centos') or osdetector.release.isLike('suse')) {
-                // Requires 'rpm-build' installed
-                installerType = 'rpm'
-                skipInstaller = false
-                installerOptions += [
-                    '--linux-rpm-license-type', 'APACHE-20'
-                ]
-            }
         }
 
     }
