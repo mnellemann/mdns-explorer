@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.inject.Singleton;
 import javax.jmdns.JmDNS;
 import java.io.IOException;
@@ -71,7 +69,6 @@ public class DiscoveryService {
     }};
 
 
-    @PostConstruct
     public void initialize() {
         log.info("initialize()");
         try {
@@ -82,7 +79,6 @@ public class DiscoveryService {
     }
 
 
-    @PreDestroy
     public void destroy() {
         if(jmdns != null) {
             try {
