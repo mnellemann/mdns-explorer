@@ -23,9 +23,9 @@ steps:
         from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
     commands:
       - apt-get update && apt-get install -y dpkg-dev unzip zip curl
-      - curl -s 'https://get.sdkman.io' | bash
-      - source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8.fx-librca
-      - source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage
+      - bash -c "curl -s 'https://get.sdkman.io' | bash"
+      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-zulu"
+      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage"
       - for file in build/jpackage/*.{rpm,deb} ; do curl -s --user "$${AUTH_TOKEN}" --upload-file "$${file}" "https://git.data.coop/api/packages/${DRONE_REPO_OWNER}/generic/${DRONE_REPO_NAME}/${DRONE_TAG}/$(basename $file)" ; done
     when:
       event:
@@ -39,9 +39,9 @@ steps:
         from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
     commands:
       - dnf -y install unzip zip curl rpm-build
-      - curl -s 'https://get.sdkman.io' | bash
-      - source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8.fx-librca
-      - source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage
+      - bash -c "curl -s 'https://get.sdkman.io' | bash"
+      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-zulu"
+      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage"
       - for file in build/jpackage/*.{rpm,deb} ; do curl -s --user "$${AUTH_TOKEN}" --upload-file "$${file}" "https://git.data.coop/api/packages/${DRONE_REPO_OWNER}/generic/${DRONE_REPO_NAME}/${DRONE_TAG}/$(basename $file)" ; done
     when:
       event:
