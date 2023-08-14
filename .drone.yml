@@ -37,7 +37,7 @@ steps:
       AUTH_TOKEN:                 # Gitea access token ENV variable
         from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
     commands:
-      - dnf -y install unzip zip curl rpm-build java-17-openjdk
+      - dnf -y install unzip zip curl rpm-build java-17-openjdk-gui
 #      - bash -c "curl -s 'https://get.sdkman.io' | bash"
 #      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8.fx-librca"
 #      - bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage"
