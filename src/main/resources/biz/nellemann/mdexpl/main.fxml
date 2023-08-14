@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="view" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biz.nellemann.mdexpl.MainPresenter">
+
+   <center>
+      <ListView fx:id="listView" BorderPane.alignment="CENTER" />
+   </center>
+
+</BorderPane>

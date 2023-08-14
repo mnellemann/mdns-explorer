@@ -74,7 +74,7 @@ public class NetworkService {
 
     @Override
     public String toString() {
-        return name + " (" + type + "), app=" + app + ", url=" + url;
+        return name + " (" + app + ") " + url;
     }
 
 
