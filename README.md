@@ -1,6 +1,9 @@
 # mDNS Explorer
 
-View all multicastDNS devices on your local network.
+View multicastDNS services on your local network.
+
+![mDNS-Explorer](doc/mDNS-Explorer.png)
+
 
 ## Development
 
