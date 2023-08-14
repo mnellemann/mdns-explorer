@@ -5,9 +5,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.14'
     id 'com.google.osdetector' version '1.7.3'
     id 'org.beryx.jlink' version '2.26.0'
-    //id "com.github.johnrengelman.shadow" version "8.1.1"
-    //id 'com.gluonhq.gluonfx-gradle-plugin' version '1.0.19'
-
 }
 
 
@@ -30,7 +27,9 @@ application {
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-    //modularity.inferModulePath = false
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 /* This is to be able to build with a JDK not bundled with JavaFX */
@@ -55,56 +54,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-/*
-gluonfx {
-    verbose = true
-    target = project.hasProperty("target") ? project.getProperty("target") : 'host'
-    //target = 'ios'        // Uncomment to enable iOS - see https://docs.gluonhq.com/#prerequisites_ios
-    //target = 'android'    // Uncomment to enable Android - see https://docs.gluonhq.com/#prerequisites_android
-
-    attachConfig {
-        version = "4.0.18"
-        services 'storage', 'display', 'lifecycle', 'statusbar'
-    }
-
-    reflectionList = [
-        "javafx.fxml.FXMLLoader",
-        "com.gluonhq.charm.glisten.mvc.View",
-        "com.gluonhq.charm.glisten.control.Icon",
-        "com.gluonhq.charm.glisten.control.DropdownButton",
-        "com.gluonhq.charm.glisten.control.BottomNavigation",
-        "com.gluonhq.charm.glisten.control.BottomNavigationButton",
-        "biz.nellemann.mdexpl.view.AboutPresenter",
-        "biz.nellemann.mdexpl.view.MainPresenter", "biz.nellemann.mdexpl.model.MainModel",
-        "biz.nellemann.mdexpl.service.DiscoveryService",
-    ]
-
-    compilerArgs = [
-        '-Djava.awt.headless=true'
-    ]
-
-    appIdentifier = 'biz.nellemann.mdexpl'
-
-    release {
-        // Android
-        appLabel = "mDNS Explorer"
-        //versionCode = "1"
-        //versionName = "1.0"
-        //providedKeyStorePath = ""
-        //providedKeyStorePassword = ""
-        //providedKeyAlias = ""
-        //providedKeyAliasPassword = ""
-        // iOS
-        //bundleName = "mDNS Explorer"
-        //bundleVersion = ""
-        //bundleShortVersion = ""
-        //providedSigningIdentity = ""
-        //providedProvisioningProfile = ""
-        //skipSigning = true  // Will not run or deploy if not signed
-    }
-
-}*/
 
 jlink {
 
@@ -183,15 +132,6 @@ jlink {
     }
 
 }
-
-/*
-shadowJar {
-    //archiveBaseName.set("vtd-poc-app")
-    //archiveClassifier.set('all')
-    archiveVersion.set("${System.env.BITBUCKET_BRANCH ?: 'dev' }")
-}*/
-
-//tasks.build.dependsOn tasks.shadowJar
 
 tasks.processResources {
     filesMatching('**/configuration.properties') {
