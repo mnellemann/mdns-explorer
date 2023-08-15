@@ -3,8 +3,8 @@ module biz.nellemann.mdexpl {
     requires javafx.fxml;
     requires javax.jmdns;
     requires org.slf4j;
-    requires javax.inject;
-    requires java.annotation;
+    requires jakarta.inject;
+    requires jakarta.annotation;
     requires java.desktop;
 
     opens biz.nellemann.mdexpl to javafx.fxml;

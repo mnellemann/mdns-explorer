@@ -1,8 +1,11 @@
 package biz.nellemann.mdexpl.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.paint.Color;
 
-import java.util.Objects;
+import java.util.*;
 
 public class NetworkService {
 
@@ -12,6 +15,8 @@ public class NetworkService {
     private String app;
     private String url;
     private Color color;
+    private final ArrayList<String> propertiesList = new ArrayList<>();
+
 
     public NetworkService(String name, String type, String subType, String app, String url, Color color) {
         this.name = name;
@@ -69,6 +74,14 @@ public class NetworkService {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void addProperty(String key, String value) {
+        propertiesList.add(key + ": " + value);
+    }
+
+    public ArrayList<?> getProperties() {
+        return propertiesList;
     }
 
 

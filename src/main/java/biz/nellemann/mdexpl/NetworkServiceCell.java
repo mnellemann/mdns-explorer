@@ -1,13 +1,15 @@
 package biz.nellemann.mdexpl;
 
 import biz.nellemann.mdexpl.model.NetworkService;
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.Clipboard;
-
 
 public class NetworkServiceCell extends ListCell<NetworkService> {
 
@@ -31,6 +33,14 @@ public class NetworkServiceCell extends ListCell<NetworkService> {
             if(itemProperty().get() != null) {
                 clipboardContent.putString(itemProperty().get().getUrl());
                 clipboard.setContent(clipboardContent);
+
+                Node source = (Node) e.getSource();
+                Scene scene = source.getScene();
+                Object node = scene.lookup("#propertiesList");
+
+                if(node instanceof ListView listView) {
+                    listView.setItems(FXCollections.observableArrayList(itemProperty().get().getProperties()));
+                }
             };
         });
         setText(null);
