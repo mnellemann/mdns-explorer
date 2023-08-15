@@ -7,9 +7,6 @@ plugins {
     id 'org.beryx.jlink' version '2.26.0'
 }
 
-
-import org.apache.tools.ant.filters.ReplaceTokens
-
 repositories {
     mavenCentral()
     mavenLocal()
@@ -78,7 +75,7 @@ jlink {
         installerName = "mDNS-Explorer-${osdetector.arch}"
         installerOptions += [
             '--vendor', 'Nellemann Data',
-            '--description', 'mDNS Explorer',
+            '--description', 'List mDNS services on your local network.',
             '--copyright', 'Mark Nellemann <mark.nellemann@gmail.com>',
             '--app-version', version
         ]
@@ -104,23 +101,18 @@ jlink {
             ]
         }
 
+        // Requires: build-rpm / rpm and dpkg-dev
         if(osdetector.os == 'linux') {
             skipInstaller = false
             installerOptions += [
-                '--linux-menu-group', 'Internet',
                 '--linux-shortcut',
-                '--linux-deb-maintainer', 'mark.nellemann@gmail.com',
+                '--linux-menu-group', 'Internet',
                 '--linux-rpm-license-type', 'APACHE-20',
+                '--linux-deb-maintainer', 'mark.nellemann@gmail.com',
                 '--icon', 'src/main/resources/icon.png',
             ]
         }
 
     }
 
-}
-
-tasks.processResources {
-    filesMatching('**/configuration.properties') {
-        filter(ReplaceTokens, tokens: [copyright: '2023', version: System.env.BITBUCKET_BUILD_NUMBER ?: 'development' ])
-    }
 }
