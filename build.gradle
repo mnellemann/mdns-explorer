@@ -77,7 +77,7 @@ jlink {
             '--vendor', 'Nellemann Data',
             '--description', 'List mDNS services on your local network.',
             '--copyright', 'Mark Nellemann <mark.nellemann@gmail.com>',
-            '--app-version', version
+            '--app-version', project.findProperty('version')
         ]
 
         // Requires: https://wixtoolset.org/ to create installer on Windows
