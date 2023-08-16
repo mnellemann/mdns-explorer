@@ -11,7 +11,7 @@ type: docker
 steps:
 
   - name: jpackage
-    image: docker.io/bellsoft/liberica-openjdk-debian:17
+    image: docker.io/eclipse-temurin:17
     environment:
       AUTH_TOKEN:                 # Gitea access token ENV variable
         from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
