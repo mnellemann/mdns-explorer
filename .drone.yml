@@ -10,18 +10,13 @@ type: docker
 
 steps:
 
-#  - name: test
-#    image: docker.io/bellsoft/liberica-openjdk-debian:17
-#    commands:
-#      - ./gradlew --quiet --no-daemon test
-
   - name: jpackage
-    image: docker.io/debian:stable
+    image: docker.io/bellsoft/liberica-openjdk-debian:17
     environment:
       AUTH_TOKEN:                 # Gitea access token ENV variable
         from_secret: AUTH_TOKEN   # Name of DroneCI secret exposed above
     commands:
-      - apt-get update && apt-get install -y dpkg-dev rpm unzip zip curl openjdk-17-jdk
+      - apt-get update && apt-get install -y dpkg-dev rpm unzip zip curl
       - ./gradlew --no-daemon clean build jpackage
       - for file in build/jpackage/*.* ; do curl -s --user "$${AUTH_TOKEN}" --upload-file "$${file}" "https://git.data.coop/api/packages/${DRONE_REPO_OWNER}/generic/${DRONE_REPO_NAME}/${DRONE_TAG}/$(basename $file)" ; done
     when:
