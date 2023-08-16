@@ -1,36 +1,50 @@
 package biz.nellemann.mdexpl;
 
-import biz.nellemann.mdexpl.view.AppViewManager;
-import com.gluonhq.charm.glisten.application.AppManager;
-import com.gluonhq.charm.glisten.visual.Swatch;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.awt.Taskbar;
+import java.awt.Toolkit;
+import java.awt.Taskbar.Feature;
+import java.io.IOException;
 
 
 public class App extends Application {
 
-    private final AppManager appManager = AppManager.initialize(this::postInit);
-
     @Override
-    public void init() {
-        AppViewManager.registerViewsAndDrawer();
-    }
+    public void start(Stage primaryStage) throws IOException {
 
-    @Override
-    public void start(Stage primaryStage) {
-        //System.setProperty(com.gluonhq.attach.util.Constants.ATTACH_DEBUG,"true");
-        appManager.start(primaryStage);
-    }
+        // Make all stages close and the app exit when the primary stage is closed
+        Platform.setImplicitExit(true);
+        primaryStage.setOnCloseRequest(e -> {
+            System.exit(0);
+        });
 
+        // Set icon on the application bar
+        var appIcon = new Image("/icon.png");
+        primaryStage.getIcons().add(appIcon);
 
-    private void postInit(Scene scene) {
-        Swatch.GREEN.assignTo(scene);
-        //scene.getStylesheets().add(App.class.getResource("style.css").toExternalForm());
-        ((Stage) scene.getWindow()).getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("/icon.png"))));
+        // Set icon on the taskbar/dock
+        if (Taskbar.isTaskbarSupported()) {
+            var taskbar = Taskbar.getTaskbar();
+
+            if (taskbar.isSupported(Feature.ICON_IMAGE)) {
+                final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+                var dockIcon = defaultToolkit.getImage(getClass().getResource("/icon.png"));
+                taskbar.setIconImage(dockIcon);
+            }
+
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        primaryStage.setTitle("mDNS Explorer");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 

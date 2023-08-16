@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
+import java.util.Iterator;
 
 public class NetworkServiceListener implements ServiceListener {
 
@@ -21,7 +22,7 @@ public class NetworkServiceListener implements ServiceListener {
     private final Color color;
 
     public NetworkServiceListener(String service, ObservableList<NetworkService> observableList, Color color) {
-        log.info("NetworkServiceListener() - type: {}", service);
+        log.debug("NetworkServiceListener() - type: {}", service);
         this.service = service;
         this.observableList = observableList;
         this.color = color;
@@ -38,13 +39,13 @@ public class NetworkServiceListener implements ServiceListener {
         ServiceInfo serviceInfo = event.getInfo();
         if (serviceInfo != null) {
             String name = serviceInfo.getName();
+            String url = serviceInfo.getURLs()[0];
             log.info("serviceRemoved() - Service: " + name);
-            NetworkService networkService = new NetworkService(name, service, serviceInfo.getSubtype(), serviceInfo.getApplication(), serviceInfo.getURLs()[0], color);
-            while (observableList.contains(networkService)) {
-                Platform.runLater(() -> {
-                    observableList.remove(networkService);
-                });
-            }
+            Platform.runLater( () -> {
+                observableList.stream().filter(e -> (
+                    e.getName().equals(name) && e.getUrl().equals(url)
+                )).forEach(observableList::remove);
+            });
         }
     }
 
@@ -56,7 +57,15 @@ public class NetworkServiceListener implements ServiceListener {
             String name = serviceInfo.getName();
             String app = serviceInfo.getApplication();
             log.info("serviceResolved() - Service: {} - {} with url {}", app, name, url);
+
             NetworkService networkService = new NetworkService(name, service, serviceInfo.getSubtype(), app, url, color);
+            for (Iterator<String> it = serviceInfo.getPropertyNames().asIterator(); it.hasNext(); ) {
+                String key = it.next();
+                String value = serviceInfo.getPropertyString(key);
+                //log.info(" -> " + key + " = " + value);
+                networkService.addProperty(key, value);
+            }
+
             Platform.runLater(() -> {
                 if(!observableList.contains(networkService)) {
                     observableList.add(networkService);

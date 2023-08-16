@@ -1,0 +1,14 @@
+FROM docker.io/almalinux:8 AS build
+
+RUN dnf -y install unzip zip rpm-build
+RUN sh -c "curl -s 'https://get.sdkman.io' | bash"
+RUN sh -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-zulu"
+
+COPY ./src /tmp/prj/src
+COPY ./gradle /tmp/prj/gradle
+COPY [ "gradlew", "build.gradle", "gradle.properties", "settings.gradle", "/tmp/prj/" ]
+
+WORKDIR /tmp/prj
+RUN sh -c "source $HOME/.sdkman/bin/sdkman-init.sh && ./gradlew --no-daemon clean build jpackage"
+
+COPY --from=build build/jpackage/* build/
