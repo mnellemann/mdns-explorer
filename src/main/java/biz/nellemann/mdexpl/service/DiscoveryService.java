@@ -2,12 +2,12 @@ package biz.nellemann.mdexpl.service;
 
 import biz.nellemann.mdexpl.NetworkServiceListener;
 import biz.nellemann.mdexpl.model.NetworkService;
+import jakarta.inject.Singleton;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import javax.jmdns.JmDNS;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -55,6 +55,9 @@ public class DiscoveryService {
         put("hap", Color.LIGHTGREEN);
         put("homekit", Color.LIGHTGREEN);
         put("homebridge", Color.LIGHTGREEN);
+
+        put("device-info", Color.DARKGREEN);
+        //put("rdlink", Color.DARKGREEN);
 
         put("sip", Color.YELLOW);
         put("skype", Color.YELLOW);
