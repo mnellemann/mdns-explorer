@@ -1,13 +1,15 @@
 # mDNS Explorer
 
-
-See all devices on your local network that advertises services through mDNS (multicast DNS).
+See devices on your local network that advertises services through mDNS (multicast DNS).
 
 ![mDNS-Explorer](doc/mDNS-Explorer.png)
 
 When selecting an entry from the list:
 - the service URL is copied to your clipboard
 - and you will see any properties from the selected service
+
+Download installers for Windows, macOS & Linux here: [https://git.data.coop/nellemann/-/packages/generic/mdns-explorer/](https://git.data.coop/nellemann/-/packages/generic/mdns-explorer/)
+
 
 ## Development
 
