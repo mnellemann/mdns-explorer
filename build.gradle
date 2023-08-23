@@ -80,6 +80,7 @@ jlink {
             '--copyright', 'Mark Nellemann <mark.nellemann@gmail.com>',
             '--app-version', project.findProperty('version')
         ]
+        icon = 'src/main/resources/icon.png'
 
         // Requires: https://wixtoolset.org/ to create installer on Windows
         if(osdetector.os == 'windows') {
