@@ -1,15 +1,19 @@
 # mDNS Explorer
 
-View multicastDNS services on your local network.
+
+See all devices on your local network that advertises services through mDNS (multicast DNS).
 
 ![mDNS-Explorer](doc/mDNS-Explorer.png)
 
+When selecting an entry from the list:
+- the service URL is copied to your clipboard
+- and you will see any properties from the selected service
 
 ## Development
 
 Java SDK version 17 (or later) is required.
 
-Information on how to build and package jftpd:
+Information on how to build and package mDNS-Explorer:
 
 ```shell
 ./gradlew build jpackage
@@ -17,21 +21,22 @@ Information on how to build and package jftpd:
 
 ### Windows
 
-Download and install
+Download and install:
+
 - Microsoft .NET Framework 3.5
 - Wix Toolset 3.11.2 (or later)
 
 
 ### Linux
 
-TODO
+On Debian/Ubuntu:
 
-docker build . -f docker/Dockerfile.rpm-txt
+- ```apt install dpkg-dev rpm```
 
-or
-
-docker build . -f docker/Dockerfile.deb-txt
 
 ### MacOS
 
-TODO
+Install xcode command line tools:
+
+- ```xcode-select --install```
+

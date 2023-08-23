@@ -43,7 +43,7 @@ public class NetworkServiceListener implements ServiceListener {
             log.info("serviceRemoved() - Service: " + name);
             Platform.runLater( () -> {
                 observableList.stream().filter(e -> (
-                    e.getName().equals(name) && e.getUrl().equals(url)
+                    e.getName().equals(name)
                 )).forEach(observableList::remove);
             });
         }
