@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import atlantafx.base.theme.NordDark;
 
 import java.awt.Taskbar;
 import java.awt.Toolkit;
@@ -39,6 +40,9 @@ public class App extends Application {
             }
 
         }
+
+        // find more themes in 'atlantafx.base.theme' package
+        Application.setUserAgentStylesheet(new NordDark().getUserAgentStylesheet());
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

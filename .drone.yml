@@ -7,9 +7,7 @@ type: docker
 #  os: linux
 #  arch: amd64
 
-
 steps:
-
   - name: jpackage
     image: docker.io/eclipse-temurin:17
     environment:

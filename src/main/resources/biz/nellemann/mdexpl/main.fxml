@@ -9,7 +9,7 @@
       <ListView fx:id="listView" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <ListView fx:id="propertiesList" />
+      <ListView fx:id="propertiesList" maxWidth="1.7976931348623157E308" prefWidth="360.0" />
    </right>
 
 </BorderPane>
