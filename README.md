@@ -8,7 +8,7 @@ When selecting an entry from the list:
 - the service URL is copied to your clipboard
 - and you will see any properties from the selected service
 
-Download installers for Windows, macOS & Linux here: [https://git.data.coop/nellemann/-/packages/generic/mdns-explorer/](https://git.data.coop/nellemann/-/packages/generic/mdns-explorer/)
+Download installers for Windows, macOS & Linux [here](https://github.com/mnellemann/mdns-explorer/releases).
 
 
 ## Development
