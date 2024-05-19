@@ -63,7 +63,7 @@ jlink {
 
     options = [
         '--strip-debug',
-        '--compress',
+        '--compress=zip-9',
         '--no-header-files',
         '--no-man-pages'
     ]

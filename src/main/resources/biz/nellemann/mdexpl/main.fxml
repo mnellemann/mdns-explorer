@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="view" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biz.nellemann.mdexpl.MainPresenter">
+<BorderPane fx:id="view" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biz.nellemann.mdexpl.MainPresenter">
 
    <center>
       <ListView fx:id="listView" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <ListView fx:id="propertiesList" maxWidth="1.7976931348623157E308" prefWidth="360.0" />
+      <ListView fx:id="propertiesList" prefWidth="420.0" />
    </right>
 
 </BorderPane>
