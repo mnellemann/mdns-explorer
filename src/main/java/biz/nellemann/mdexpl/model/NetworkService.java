@@ -80,7 +80,7 @@ public class NetworkService {
         propertiesList.add(key + ": " + value);
     }
 
-    public ArrayList<?> getProperties() {
+    public ArrayList<String> getProperties() {
         return propertiesList;
     }
 
