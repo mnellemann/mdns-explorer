@@ -7,12 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MainPresenter {
@@ -43,7 +40,7 @@ public class MainPresenter {
     public void initialize() {
         log.info("initialize()");
         listView.setItems(devicesList);
-        listView.setCellFactory(p -> new NetworkServiceCell());
+        listView.setCellFactory(p -> new NetworkServiceCell(propertiesList));
         discoveryService = new DiscoveryService(devicesList);
     }
 

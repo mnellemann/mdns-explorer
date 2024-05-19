@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'groovy'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'org.javamodularity.moduleplugin' version '1.8.15'
     id 'com.google.osdetector' version '1.7.3'
-    id 'org.beryx.jlink' version '2.26.0'
-    id "com.github.ben-manes.versions" version "0.47.0"
+    id 'org.beryx.jlink' version '3.0.1'
+    id "com.github.ben-manes.versions" version "0.51.0"
 }
 
 repositories {
@@ -23,32 +24,33 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
+    modularity.inferModulePath = false
 }
 
 /* This is to be able to build with a JDK not bundled with JavaFX */
 javafx {
-    version = '17.0.8'
+    version = '21.0.3'
     modules = [ 'javafx.controls', 'javafx.fxml' ]
     // platform("linux-aarch64")
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.7'                                      // Logging API
-    runtimeOnly 'org.slf4j:slf4j-simple:2.0.7'                                      // Logging API
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    runtimeOnly 'org.slf4j:slf4j-simple:2.0.13'
 
     implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
     implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
-    implementation 'org.jmdns:jmdns:3.5.8'
+    implementation 'org.jmdns:jmdns:3.5.9'
 
 
     testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.7'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.13'
 }
 
 test {
@@ -61,7 +63,7 @@ jlink {
 
     options = [
         '--strip-debug',
-        '--compress', '2',
+        '--compress=zip-9',
         '--no-header-files',
         '--no-man-pages'
     ]
