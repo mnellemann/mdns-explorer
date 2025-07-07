@@ -1,8 +1,5 @@
 package biz.nellemann.mdexpl.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.paint.Color;
 
 import java.util.*;

@@ -5,8 +5,10 @@ module biz.nellemann.mdexpl {
     requires atlantafx.base;
     requires jakarta.inject;
     requires org.slf4j;
-    requires javax.jmdns;
+    requires transitive javafx.graphics;
+    requires transitive javax.jmdns;
 
     opens biz.nellemann.mdexpl to javafx.fxml;
     exports biz.nellemann.mdexpl;
+    exports biz.nellemann.mdexpl.model;
 }

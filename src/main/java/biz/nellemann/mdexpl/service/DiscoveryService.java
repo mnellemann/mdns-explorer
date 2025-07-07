@@ -24,6 +24,7 @@ public class DiscoveryService {
 
     private JmDNS jmdns;
 
+
     // From: http://www.dns-sd.org/serviceTypes.html +
     // https://jonathanmumm.com/tech-it/mdns-bonjour-bible-common-service-strings-for-various-vendors/ + some guesses
     private final Map<String, Color> services  = new HashMap<>() {{
