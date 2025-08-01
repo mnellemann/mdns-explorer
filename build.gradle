@@ -2,11 +2,11 @@ plugins {
     id 'java'
     id 'groovy'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.javamodularity.moduleplugin' version '1.8.15'
+    id "com.github.ben-manes.versions" version "0.51.0"
+    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'com.google.osdetector' version '1.7.3'
     id 'org.beryx.jlink' version '3.0.1'
-    id "com.github.ben-manes.versions" version "0.51.0"
 }
 
 repositories {
