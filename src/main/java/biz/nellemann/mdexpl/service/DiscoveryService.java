@@ -24,6 +24,7 @@ public class DiscoveryService {
 
     private JmDNS jmdns;
 
+
     // From: http://www.dns-sd.org/serviceTypes.html +
     // https://jonathanmumm.com/tech-it/mdns-bonjour-bible-common-service-strings-for-various-vendors/ + some guesses
     private final Map<String, Color> services  = new HashMap<>() {{
@@ -70,7 +71,7 @@ public class DiscoveryService {
         this.observableList = list;
 
         try {
-            jmdns = JmDNS.create(InetAddress.getByName("0.0.0.0"), "mdnsExplorer");
+            jmdns = JmDNS.create(null, null);
             services.forEach((item, color) -> {
                 String service = String.format("_%s._%s.local.", item, "tcp");
                 NetworkServiceListener networkServiceListener = new NetworkServiceListener(service, observableList, color);

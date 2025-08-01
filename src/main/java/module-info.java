@@ -9,4 +9,5 @@ module biz.nellemann.mdexpl {
 
     opens biz.nellemann.mdexpl to javafx.fxml;
     exports biz.nellemann.mdexpl;
+    exports biz.nellemann.mdexpl.model;
 }

@@ -40,7 +40,7 @@ public class NetworkServiceListener implements ServiceListener {
         if (serviceInfo != null) {
             String name = serviceInfo.getName();
             String url = serviceInfo.getURLs()[0];
-            log.info("serviceRemoved() - Service: " + name);
+            log.info("serviceRemoved() - Service: {}, {}", name, url);
             Platform.runLater( () -> {
                 observableList.stream().filter(e -> (
                     e.getName().equals(name)

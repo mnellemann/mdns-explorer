@@ -2,9 +2,6 @@ package biz.nellemann.mdexpl;
 
 import biz.nellemann.mdexpl.model.NetworkService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
