@@ -3,13 +3,13 @@ imports:
 - projectPath: common/java/gradle-javafx
   revision: main
 jobs:
-- name: Pull from Github
+- name: Push to Github
   steps:
-  - !PullRepository
+  - !PushRepository
     name: Github
     remoteUrl: https://github.com/mnellemann/mdns-explorer.git
-    refs: refs/head/* refs/tags/*
-    withLfs: false
+    userName: mnellemann
+    passwordSecret: GITHUB-TOKEN
     force: false
     condition: SUCCESSFUL
     optional: false
@@ -21,4 +21,3 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-
