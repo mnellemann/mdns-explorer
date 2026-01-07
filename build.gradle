@@ -14,43 +14,46 @@ repositories {
     mavenLocal()
 }
 
-tasks.withType(JavaCompile).configureEach {
+tasks.compileJava {
     options.encoding = 'UTF-8'
+    options.forkOptions.jvmArgs = [ "--enable-native-access=javafx.graphics" ]
 }
 
 application {
     mainModule = 'biz.nellemann.mdexpl'
     mainClass = 'biz.nellemann.mdexpl.App'
+    applicationDefaultJvmArgs = [ "-XX:+ExitOnOutOfMemoryError", "-Djava.net.preferIPv4Stack=true",
+                                  "--enable-native-access=javafx.graphics" ]
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
     modularity.inferModulePath = false
 }
 
 /* This is to be able to build with a JDK not bundled with JavaFX */
 javafx {
-    version = '21+'
+    version = '25.0.1'
     modules = [ 'javafx.controls', 'javafx.fxml' ]
     // platform("linux-aarch64")
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.16'
-    runtimeOnly 'org.slf4j:slf4j-simple:2.0.16'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    runtimeOnly 'org.slf4j:slf4j-simple:2.0.17'
 
     implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
     implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
-    implementation 'org.jmdns:jmdns:3.6.1'
+    implementation 'org.jmdns:jmdns:3.6.3'
 
 
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.16'
+    testImplementation 'org.spockframework:spock-core:2.4-groovy-4.0'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.17'
 }
 
 test {
@@ -79,7 +82,7 @@ jlink {
         skipInstaller = true
         installerName = "mDNS-Explorer-${osdetector.arch}"
         installerOptions += [
-            '--vendor', 'Nellemann Data',
+            '--vendor', 'Mark Nellemann',
             '--description', 'List mDNS services on your local network.',
             '--copyright', 'Mark Nellemann <mark.nellemann@gmail.com>',
             '--app-version', project.findProperty('version')

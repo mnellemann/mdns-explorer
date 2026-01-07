@@ -6,6 +6,7 @@ module biz.nellemann.mdexpl {
     requires jakarta.inject;
     requires org.slf4j;
     requires javax.jmdns;
+    requires jdk.localedata;
 
     opens biz.nellemann.mdexpl to javafx.fxml;
     exports biz.nellemann.mdexpl;
