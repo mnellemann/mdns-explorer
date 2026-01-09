@@ -10,7 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.jmdns.JmDNS;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,15 +73,26 @@ public class DiscoveryService {
         log.info("DiscoveryService()");
         this.observableList = list;
 
+        InetAddress workingNetworkAddress = null;
+
+        // Find the preferred outbound IP, source - https://stackoverflow.com/a/38342964
+        try(final DatagramSocket socket = new DatagramSocket()){
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            workingNetworkAddress = InetAddress.getByName(socket.getLocalAddress().getHostAddress());
+        } catch (SocketException | UnknownHostException e) {
+            log.error("DiscoveryService() find preferred outbound IP - {}", e.getMessage());
+            return;
+        }
+
         try {
-            jmdns = JmDNS.create(null, null);
+            jmdns = JmDNS.create(workingNetworkAddress, "main");
             services.forEach((item, color) -> {
                 String service = String.format("_%s._%s.local.", item, "tcp");
                 NetworkServiceListener networkServiceListener = new NetworkServiceListener(service, observableList, color);
                 jmdns.addServiceListener(service, networkServiceListener);
             });
         } catch (IOException e) {
-            log.error("initialize() - {}", e.getMessage());
+            log.error("DiscoveryService() - {}", e.getMessage());
         }
     }
 

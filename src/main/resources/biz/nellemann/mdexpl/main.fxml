@@ -5,11 +5,12 @@
 
 <BorderPane fx:id="view" prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biz.nellemann.mdexpl.MainPresenter">
 
-   <center>
-      <ListView fx:id="listView" BorderPane.alignment="CENTER" />
-   </center>
-   <right>
-      <ListView fx:id="propertiesList" prefWidth="420.0" />
-   </right>
+    <center>
+        <ListView fx:id="listView" BorderPane.alignment="CENTER" />
+    </center>
+
+    <right>
+        <ListView fx:id="propertiesList" prefWidth="420.0" />
+    </right>
 
 </BorderPane>
