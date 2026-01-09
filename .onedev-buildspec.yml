@@ -2,6 +2,7 @@ version: 40
 imports:
 - projectPath: common/java/gradle-javafx
   revision: main
+  accessTokenSecret: common-import
 jobs:
 - name: Push to Github
   steps:
