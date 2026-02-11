@@ -2,11 +2,11 @@ plugins {
     id 'java'
     id 'groovy'
     id 'application'
-    id 'org.javamodularity.moduleplugin' version '1.8.15'
+    id 'org.javamodularity.moduleplugin' version '2.0.0'
     id "com.github.ben-manes.versions" version "0.51.0"
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'com.google.osdetector' version '1.7.3'
-    id 'org.beryx.jlink' version '3.0.1'
+    id 'org.beryx.jlink' version '3.1.3'
 }
 
 repositories {
@@ -79,15 +79,14 @@ jlink {
     // Only works with Java 14 (and later)
     jpackage {
         imageName = "mDNS-Explorer"
+        installerName = "mDNS-Explorer"
         skipInstaller = true
-        installerName = "mDNS-Explorer-${osdetector.arch}"
         installerOptions += [
             '--vendor', 'Mark Nellemann',
             '--description', 'List mDNS services on your local network.',
             '--copyright', 'Mark Nellemann <mark.nellemann@gmail.com>',
             '--app-version', project.findProperty('version')
         ]
-        icon = 'src/main/resources/icon.png'
 
         // Requires: https://wixtoolset.org/ to create installer on Windows
         if(osdetector.os == 'windows') {
@@ -97,7 +96,7 @@ jlink {
                 '--win-per-user-install',
                 '--win-dir-chooser',
                 '--win-menu',
-                // '--icon', 'src/main/resources/icon.ico'
+                '--icon', 'src/main/resources/icon.ico'
             ]
         }
 

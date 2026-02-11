@@ -17,7 +17,6 @@ public class MainPresenter {
     private static final Logger log = LoggerFactory.getLogger(MainPresenter.class);
 
 
-
     @FXML
     private BorderPane view;
 
@@ -32,6 +31,7 @@ public class MainPresenter {
 
     @Inject
     DiscoveryService discoveryService;
+
 
     private final ObservableList<NetworkService> devicesList = FXCollections.observableArrayList();
 
